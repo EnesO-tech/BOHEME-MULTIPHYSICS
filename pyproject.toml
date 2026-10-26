@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "boheme-mp"
+version = "1.0.0"
+description = "BOHEME Multiphysics – hydraulic, thermal and electrical network solver (Python engine)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Proprietary" }
+dependencies = []
+
+[project.optional-dependencies]
+server = ["fastapi>=0.100", "uvicorn>=0.23"]
+plot = ["matplotlib>=3.5"]
+test = ["pytest>=7", "httpx>=0.24", "fastapi>=0.100"]
+
+[project.scripts]
+boheme-mp = "boheme_mp.__main__:main"
+
+[tool.setuptools]
+package-dir = { "" = "python" }
+packages = ["boheme_mp"]
+
+[tool.pytest.ini_options]
+testpaths = ["python/tests"]

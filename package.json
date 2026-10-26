@@ -1,0 +1,10 @@
+{
+  "name": "boheme-multiphysics",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hydraulic, thermal and electrical network solver for aircraft systems",
+  "scripts": {
+    "test": "node tests/run_tests.js"
+  },
+  "license": "UNLICENSED"
+}

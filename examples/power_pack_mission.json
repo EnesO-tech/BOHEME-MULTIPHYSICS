@@ -1,0 +1,189 @@
+{
+ "title": "Electro-hydraulic power pack \u2013 mission (multiphysics)",
+ "description": "Battery-fed 270 V bus drives an electric motor-pump. The actuator valve closes at t = 120 s, so the full pump flow goes over the relief valve and heats the oil; the oil temperature changes the viscosity. Battery state of charge and bus voltage follow the load.",
+ "fluid": {
+  "model": "skydrol",
+  "T": 20,
+  "tempNode": "TOIL"
+ },
+ "hydParams": {
+  "g": 9.80665,
+  "krough": 0.0015,
+  "dUcrit": 1e-07,
+  "niter": 999,
+  "lambdaU": 0.6,
+  "kReD": 0.2,
+  "ReDcrit": 2320,
+  "zanke": false
+ },
+ "ptu": {
+  "logic": true,
+  "thresholdPsi": 500
+ },
+ "nodes": [
+  {
+   "id": "S0",
+   "domain": "hyd",
+   "tap": true,
+   "z": 0
+  },
+  {
+   "id": "N01",
+   "domain": "hyd",
+   "z": 0
+  },
+  {
+   "id": "N02",
+   "domain": "hyd",
+   "z": 0
+  },
+  {
+   "id": "N03",
+   "domain": "hyd",
+   "z": 0
+  },
+  {
+   "id": "AMB",
+   "domain": "th",
+   "fixed": 20
+  },
+  {
+   "id": "TOIL",
+   "domain": "th",
+   "C": 17500,
+   "T0": 20
+  },
+  {
+   "id": "TMOT",
+   "domain": "th",
+   "C": 8000,
+   "T0": 20
+  },
+  {
+   "id": "GND",
+   "domain": "el",
+   "fixed": 0
+  },
+  {
+   "id": "HVDC",
+   "domain": "el",
+   "V0": 270
+  }
+ ],
+ "components": [
+  {
+   "name": "P1",
+   "domain": "hyd",
+   "cell": "P1 1.2 19.6",
+   "n1": "S0",
+   "n2": "N01"
+  },
+  {
+   "name": "R01",
+   "domain": "hyd",
+   "cell": "R01 5 10",
+   "n1": "N01",
+   "n2": "N02",
+   "heatTo": "TOIL"
+  },
+  {
+   "name": "Ucv1",
+   "domain": "hyd",
+   "cell": "Ucv1 210 0.1 999",
+   "n1": "N02",
+   "n2": "S0",
+   "heatTo": "TOIL"
+  },
+  {
+   "name": "Rl_V",
+   "domain": "hyd",
+   "cell": "Rl_V 1 999",
+   "n1": "N02",
+   "n2": "N03",
+   "heatTo": "TOIL"
+  },
+  {
+   "name": "Rl_ACT",
+   "domain": "hyd",
+   "cell": "Rl_ACT 120 999",
+   "n1": "N03",
+   "n2": "S0",
+   "heatTo": "TOIL"
+  },
+  {
+   "name": "G_COOL",
+   "domain": "th",
+   "type": "G",
+   "n1": "TOIL",
+   "n2": "AMB",
+   "G": 60
+  },
+  {
+   "name": "G_MOT",
+   "domain": "th",
+   "type": "G",
+   "n1": "TMOT",
+   "n2": "AMB",
+   "G": 15
+  },
+  {
+   "name": "B1",
+   "domain": "el",
+   "type": "BAT",
+   "n1": "GND",
+   "n2": "HVDC",
+   "vmin": 240,
+   "vmax": 290,
+   "Rint": 0.08,
+   "capacityAh": 30,
+   "soc0": 0.95,
+   "heatTo": ""
+  },
+  {
+   "name": "M1",
+   "domain": "el",
+   "type": "MOTORPUMP",
+   "n1": "HVDC",
+   "n2": "GND",
+   "pump": "P1",
+   "eta": 0.85,
+   "heatTo": "TMOT"
+  },
+  {
+   "name": "AVIONICS",
+   "domain": "el",
+   "type": "LOAD",
+   "n1": "HVDC",
+   "n2": "GND",
+   "P": 800,
+   "eff": 0,
+   "heatTo": ""
+  }
+ ],
+ "events": [
+  {
+   "t": 120,
+   "comp": "Rl_V",
+   "field": "cell",
+   "value": "Rl_V 9999 999"
+  },
+  {
+   "t": 300,
+   "comp": "Rl_V",
+   "field": "cell",
+   "value": "Rl_V 1 999"
+  },
+  {
+   "t": 480,
+   "comp": "M1",
+   "field": "on",
+   "value": "off"
+  }
+ ],
+ "sim": {
+  "mode": "transient",
+  "dt": 2,
+  "tEnd": 600,
+  "startSteady": false
+ }
+}

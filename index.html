@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOHEME Multiphysics – hydraulic, thermal and electrical networks</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<style>
+:root{color-scheme:dark;--bg:#0d1020;--panel:#151a30;--panel2:#1b2140;--line:#2a3358;--txt:#dfe5f5;--mut:#8d98b8;--acc:#e94560;--hyd:#4fc3f7;--th:#ff8a50;--el:#ffd740;--ok:#4caf50;--bad:#ff5c6c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font:13px/1.45 'Segoe UI',Roboto,Arial,sans-serif}
+header{display:flex;align-items:center;gap:12px;height:52px;padding:0 16px;background:var(--panel);border-bottom:2px solid var(--acc)}
+header .logo{font-weight:800;font-size:18px;letter-spacing:.3px}
+header .logo span{color:var(--acc)}
+header .sub{color:var(--mut);font-size:12px}
+header .sp{flex:1}
+button,select,input,textarea{font:inherit;color:var(--txt)}
+.btn{background:#22305a;border:1px solid #33437a;border-radius:5px;padding:6px 12px;cursor:pointer}
+.btn:hover{background:#2b3c70}
+.btn.run{background:var(--acc);border-color:var(--acc);font-weight:700;color:#fff}
+.btn.run:hover{filter:brightness(1.1)}
+.btn.sm{padding:3px 8px;font-size:12px}
+input:not([type]),select,input[type=text],input[type=number],textarea{background:#0f1428;color:var(--txt);border:1px solid var(--line);border-radius:4px;padding:4px 6px}
+input::placeholder{color:#5c6688}
+main{display:flex;height:calc(100% - 52px)}
+aside{width:290px;flex-shrink:0;overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:12px}
+aside h3{margin:14px 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--acc)}
+aside h3:first-child{margin-top:0}
+.row{display:flex;align-items:center;gap:8px;margin:5px 0}
+.row label{flex:1;color:var(--mut)}
+.row input,.row select{width:130px}
+.desc{color:var(--mut);font-size:12px;margin:4px 0 8px}
+section.work{flex:1;display:flex;flex-direction:column;min-width:0}
+.tabs{display:flex;gap:2px;padding:8px 12px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.tab{padding:8px 16px;border:1px solid var(--line);border-bottom:none;border-radius:6px 6px 0 0;background:var(--panel);color:var(--mut);cursor:pointer}
+.tab.active{background:var(--panel2);color:var(--txt);font-weight:600}
+.pane{display:none;flex:1;overflow:auto;padding:14px}
+.pane.active{display:block}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:14px}
+.card h2{margin:0 0 8px;font-size:14px}
+.card h2 small{color:var(--mut);font-weight:400}
+table.t{width:100%;border-collapse:collapse}
+table.t th{position:sticky;top:0;background:#202a52;color:#c9d3ef;font-weight:600;font-size:11px;text-align:left;padding:5px 6px;border-bottom:1px solid var(--line)}
+table.t td{padding:3px 6px;border-bottom:1px solid #222a4a;vertical-align:middle}
+table.t td input,table.t td select{width:100%;min-width:60px}
+table.t td.num{text-align:right;font-family:Consolas,monospace}
+.dom{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;font-weight:700;color:#111}
+.dom.hyd{background:var(--hyd)}.dom.th{background:var(--th)}.dom.el{background:var(--el)}
+.x{background:none;border:none;color:var(--bad);cursor:pointer;font-size:14px}
+#status{padding:6px 14px;background:#11162c;border-top:1px solid var(--line);color:var(--mut);font-size:12px;min-height:28px}
+#status.err{color:var(--bad)}#status.ok{color:var(--ok)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px}
+.plotwrap{display:flex;gap:12px;flex-wrap:wrap}
+.siglist{width:250px;max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:6px;padding:6px;background:#0f1428}
+.siglist label{display:flex;gap:6px;align-items:center;padding:2px 0;cursor:pointer}
+.siglist .grp{color:var(--acc);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:6px 0 2px}
+#plot{flex:1;min-width:420px;background:#0f1428;border:1px solid var(--line);border-radius:6px}
+.pass{color:var(--ok);font-weight:700}.fail{color:var(--bad);font-weight:700}
+.help code{background:#0f1428;padding:1px 5px;border-radius:3px;color:#ffdd44}
+.help table td{padding:3px 8px;border-bottom:1px solid #222a4a;vertical-align:top}
+.kpi{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.kpi div{background:#0f1428;border:1px solid var(--line);border-radius:6px;padding:8px 12px;min-width:150px}
+.kpi b{display:block;font-size:18px}
+.kpi span{color:var(--mut);font-size:11px}
+#diagram{width:100%;height:640px;background:#0f1428;border:1px solid var(--line);border-radius:6px}
+.legend span{margin-right:14px}
+@media (max-width:900px){header{height:auto;flex-wrap:wrap;padding:8px 12px;gap:8px}header .sub,header .sp{display:none}header select{flex:1 1 100%}main{flex-direction:column;height:auto}aside{width:auto;max-height:none}.pane{overflow:visible}.grid2{grid-template-columns:1fr}#plot{min-width:0}.siglist{width:100%;max-height:200px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo"><span>BOHEME</span> Multiphysics</div>
+<div class="sub">Hydraulic · thermal · electrical networks – steady state and transient</div>
+<div class="sp"></div>
+<select id="exampleSel" title="Load an example"></select>
+<button class="btn" id="btnNew">New</button>
+<button class="btn" id="btnImport">Import</button>
+<button class="btn" id="btnExport">Export</button>
+<button class="btn run" id="btnRun">▶ Run</button>
+<input type="file" id="fileIn" accept=".json,application/json" style="display:none">
+</header>
+<main>
+<aside>
+<h3>Project</h3>
+<div class="row"><input type="text" id="title" style="width:100%" placeholder="Title"></div>
+<div class="desc" id="descTxt"></div>
+<h3>Engine</h3>
+<div class="row"><label title="Which solver implementation computes the results">Solver</label><select id="engine"><option value="js">JavaScript (in browser)</option><option value="pyodide">Python (in browser, Pyodide)</option><option value="server">Python server (API)</option></select></div>
+<div class="row" id="rowServer" style="display:none"><input type="text" id="serverUrl" style="width:100%" placeholder="https://your-server.example.com"></div>
+<div class="desc" id="engineInfo">Both engines use the same algorithm; results agree to ~1e-12.</div>
+<h3>Simulation</h3>
+<div class="row"><label>Mode</label><select id="simMode"><option value="steady">Steady state</option><option value="transient">Transient</option></select></div>
+<div class="row"><label>Time step dt [s]</label><input type="number" id="simDt" step="any"></div>
+<div class="row"><label>End time [s]</label><input type="number" id="simEnd" step="any"></div>
+<div class="row"><label title="Start the transient from the steady state instead of the initial temperatures T0">Start from steady state</label><input type="checkbox" id="simSteadyStart" style="width:auto"></div>
+<h3>Fluid</h3>
+<div class="row"><label>Model</label><select id="fluidModel"></select></div>
+<div class="row" id="rowFluidT"><label>Temperature [°C]</label><input type="number" id="fluidT" step="any"></div>
+<div class="row"><label title="If set, the fluid temperature is taken from this thermal node (two-way coupling)">Temperature from node</label><select id="fluidNode"></select></div>
+<div id="customFluid" style="display:none">
+<div class="row"><label>ρ [kg/m³]</label><input type="number" id="fluidRho" step="any"></div>
+<div class="row"><label>μ [Pa·s]</label><input type="number" id="fluidMu" step="any"></div>
+</div>
+<h3>PTU activation</h3>
+<div class="row"><label>Δp logic</label><select id="ptuLogic"><option value="on">ON</option><option value="off">OFF (always runs)</option></select></div>
+<div class="row"><label>Threshold [psi]</label><input type="number" id="ptuThr" step="any"></div>
+<h3>Hydraulic solver</h3>
+<div class="row"><label>Roughness k [mm]</label><input type="number" id="hpKr" step="any"></div>
+<div class="row"><label>Damping λ_U</label><input type="number" id="hpLam" step="any"></div>
+<div class="row"><label>dU_crit</label><input type="number" id="hpDu" step="any"></div>
+<div class="row"><label>Max. iterations</label><input type="number" id="hpIt" step="1"></div>
+<div class="row"><label>Re_crit</label><input type="number" id="hpRe" step="any"></div>
+<div class="row"><label>k_ReD</label><input type="number" id="hpK" step="any"></div>
+<div class="row"><label>g [m/s²]</label><input type="number" id="hpG" step="any"></div>
+<div class="row"><label>Zanke friction</label><select id="hpZ"><option value="0">OFF (Swamee–Jain)</option><option value="1">ON</option></select></div>
+</aside>
+<section class="work">
+<div class="tabs">
+<div class="tab active" data-tab="model">Model</div>
+<div class="tab" data-tab="view3d">3D</div>
+<div class="tab" data-tab="diagram">Diagram</div>
+<div class="tab" data-tab="results">Results</div>
+<div class="tab" data-tab="validation">Validation</div>
+<div class="tab" data-tab="help">Help</div>
+</div>
+<div class="pane active" id="pane-model">
+<div class="card"><h2>Nodes <small>– potentials: pressure (hyd), temperature (th), voltage (el)</small></h2><table class="t" id="tNodes"></table><div style="margin-top:8px"><button class="btn sm" data-add="hyd">+ Hydraulic node</button> <button class="btn sm" data-add="th">+ Thermal node</button> <button class="btn sm" data-add="el">+ Electrical node</button></div></div>
+<div class="card"><h2>Components <small>– hydraulic: BOHEME cell syntax · thermal/electrical: type + parameters</small></h2><table class="t" id="tComps"></table><div style="margin-top:8px"><button class="btn sm" data-addc="hyd">+ Hydraulic</button> <button class="btn sm" data-addc="th">+ Thermal</button> <button class="btn sm" data-addc="el">+ Electrical</button></div></div>
+<div class="card"><h2>Events <small>– change a component parameter at time t (transient)</small></h2><table class="t" id="tEvents"></table><div style="margin-top:8px"><button class="btn sm" id="addEvent">+ Event</button></div></div>
+</div>
+<div class="pane" id="pane-view3d" style="padding:0;position:relative;">
+<div id="view3d" style="width:100%;height:100%;min-height:600px;"></div>
+<div id="v3hud" style="position:absolute;top:10px;left:10px;background:rgba(13,16,32,.85);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:12px;pointer-events:auto;max-width:260px;">
+<div style="color:var(--acc);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">3D Network</div>
+<div class="row" style="margin:4px 0"><label>Layout</label><select id="v3layout" style="width:110px"><option value="force">Force-directed</option><option value="circular">Circular</option></select></div>
+<div class="row" style="margin:4px 0"><label>Labels</label><select id="v3labels" style="width:110px"><option value="name">Name</option><option value="value">Value (after Run)</option><option value="both">Name + value</option><option value="off">Off</option></select></div>
+<div class="row" style="margin:4px 0"><label>Coupling links</label><input type="checkbox" id="v3coupling" checked style="width:auto"></div>
+<div style="color:var(--mut);margin-top:6px"><span class="dom hyd">hyd</span> <span class="dom th">th</span> <span class="dom el">el</span> <span style="color:#888">— dashed = coupling</span></div>
+<div id="v3info" style="color:var(--mut);margin-top:6px"></div>
+</div>
+</div>
+<div class="pane" id="pane-diagram"><div class="card"><h2>Network diagram <small>– after Run, node values are shown</small></h2><div class="legend"><span class="dom hyd">hydraulic</span><span class="dom th">thermal</span><span class="dom el">electrical</span><span style="color:var(--mut)">dashed: coupling (heat, motor-pump)</span></div><svg id="diagram"></svg></div></div>
+<div class="pane" id="pane-results"><div id="resKpi" class="kpi"></div><div id="resPlot"></div><div id="resTables"></div></div>
+<div class="pane" id="pane-validation"><div class="card"><h2>Validation suite</h2><p class="desc">The solver is checked against the Excel/VBA reference (hydraulic_networks v1.4, M. Berens), the BOHEME A320 model and analytic solutions for every physical domain and coupling. The same checks run automatically in <code>tests/run_tests.js</code>.</p><button class="btn run" id="btnValidate">Run validation</button><div id="valOut" style="margin-top:12px"></div></div></div>
+<div class="pane help" id="pane-help"></div>
+<div id="status">Ready.</div>
+</section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/solver.js"></script>
+<script src="js/view3d.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

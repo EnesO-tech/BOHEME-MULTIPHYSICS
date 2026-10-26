@@ -1,0 +1,645 @@
+{
+ "title": "A320 Green hydraulic system",
+ "description": "Green system of an Airbus A320 with engine-driven pump, relief valve, twelve consumers and the PTU to the Yellow system (BOHEME model, \u221240 \u00b0C).",
+ "fluid": {
+  "model": "skydrol",
+  "T": -40
+ },
+ "hydParams": {
+  "g": 9.80665,
+  "krough": 0.0015,
+  "dUcrit": 1e-07,
+  "niter": 999,
+  "lambdaU": 0.6,
+  "kReD": 0.2,
+  "ReDcrit": 2320,
+  "zanke": false
+ },
+ "ptu": {
+  "logic": true,
+  "thresholdPsi": 500
+ },
+ "nodes": [
+  {
+   "id": "N01",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N02",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N03",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N04",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N05",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N06",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N07",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N08",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N09",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N10",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N11",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N12",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N13",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N14",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N15",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N16",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N17",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N18",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N19",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N20",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N21",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N22",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N23",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N24",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N25",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N26",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N27",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N28",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N29",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N30",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N31",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N32",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N33",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N34",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N35",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N36",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N37",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N38",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N39",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N40",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N41",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "N42",
+   "domain": "hyd",
+   "z": 0.0
+  },
+  {
+   "id": "S35",
+   "domain": "hyd",
+   "tap": true,
+   "z": 35.0
+  }
+ ],
+ "components": [
+  {
+   "name": "R16",
+   "domain": "hyd",
+   "cell": "R16 2 28.2",
+   "n1": "N15",
+   "n2": "N16"
+  },
+  {
+   "name": "URU",
+   "domain": "hyd",
+   "cell": "URU -5 0.01 999",
+   "n1": "N17",
+   "n2": "N16"
+  },
+  {
+   "name": "R17",
+   "domain": "hyd",
+   "cell": "R17 2 34.4",
+   "n1": "N18",
+   "n2": "N17"
+  },
+  {
+   "name": "UAL",
+   "domain": "hyd",
+   "cell": "UAL -5 0.01 999",
+   "n1": "N08",
+   "n2": "N07"
+  },
+  {
+   "name": "R15",
+   "domain": "hyd",
+   "cell": "R15 2 28.2",
+   "n1": "N11",
+   "n2": "N15"
+  },
+  {
+   "name": "UYD",
+   "domain": "hyd",
+   "cell": "UYD -5 0.01 999",
+   "n1": "N18",
+   "n2": "N15"
+  },
+  {
+   "name": "R18",
+   "domain": "hyd",
+   "cell": "R18 2 34.4",
+   "n1": "N22",
+   "n2": "N18"
+  },
+  {
+   "name": "UAR",
+   "domain": "hyd",
+   "cell": "UAR -5 0.01 999",
+   "n1": "N33",
+   "n2": "N32"
+  },
+  {
+   "name": "R07",
+   "domain": "hyd",
+   "cell": "R07 3 28.2",
+   "n1": "N06",
+   "n2": "N07"
+  },
+  {
+   "name": "R08",
+   "domain": "hyd",
+   "cell": "R08 3 34.4",
+   "n1": "N09",
+   "n2": "N08"
+  },
+  {
+   "name": "R32",
+   "domain": "hyd",
+   "cell": "R32 3 28.2",
+   "n1": "N31",
+   "n2": "N32"
+  },
+  {
+   "name": "R33",
+   "domain": "hyd",
+   "cell": "R33 3 34.4",
+   "n1": "N34",
+   "n2": "N33"
+  },
+  {
+   "name": "U5L",
+   "domain": "hyd",
+   "cell": "U5L -10 0.01 999",
+   "n1": "N09",
+   "n2": "N06"
+  },
+  {
+   "name": "R14",
+   "domain": "hyd",
+   "cell": "R14 2 28.2",
+   "n1": "N12",
+   "n2": "N14"
+  },
+  {
+   "name": "ULE",
+   "domain": "hyd",
+   "cell": "ULE -5 0.01 999",
+   "n1": "N19",
+   "n2": "N14"
+  },
+  {
+   "name": "R20",
+   "domain": "hyd",
+   "cell": "R20 2 34.4",
+   "n1": "N21",
+   "n2": "N19"
+  },
+  {
+   "name": "U5R",
+   "domain": "hyd",
+   "cell": "U5R -10 0.01 999",
+   "n1": "N34",
+   "n2": "N31"
+  },
+  {
+   "name": "Upt1a",
+   "domain": "hyd",
+   "cell": "Upt1a 0.96 0.92 5 28.2",
+   "n1": "N02",
+   "n2": "N39"
+  },
+  {
+   "name": "R06",
+   "domain": "hyd",
+   "cell": "R06 7 28.2",
+   "n1": "N05",
+   "n2": "N06"
+  },
+  {
+   "name": "R09",
+   "domain": "hyd",
+   "cell": "R09 7 34.4",
+   "n1": "N10",
+   "n2": "N09"
+  },
+  {
+   "name": "R12",
+   "domain": "hyd",
+   "cell": "R12 2 28.2",
+   "n1": "N12",
+   "n2": "N11"
+  },
+  {
+   "name": "R19",
+   "domain": "hyd",
+   "cell": "R19 2 34.4",
+   "n1": "N22",
+   "n2": "N21"
+  },
+  {
+   "name": "R31",
+   "domain": "hyd",
+   "cell": "R31 7 28.2",
+   "n1": "N30",
+   "n2": "N31"
+  },
+  {
+   "name": "R34",
+   "domain": "hyd",
+   "cell": "R34 7 34.4",
+   "n1": "N35",
+   "n2": "N34"
+  },
+  {
+   "name": "U1L",
+   "domain": "hyd",
+   "cell": "U1L -10 0.01 999",
+   "n1": "N10",
+   "n2": "N05"
+  },
+  {
+   "name": "R13",
+   "domain": "hyd",
+   "cell": "R13 2 28.2",
+   "n1": "N13",
+   "n2": "N12"
+  },
+  {
+   "name": "UTS",
+   "domain": "hyd",
+   "cell": "UTS -2.5 0.01 999",
+   "n1": "N20",
+   "n2": "N13"
+  },
+  {
+   "name": "R21",
+   "domain": "hyd",
+   "cell": "R21 2 34.4",
+   "n1": "N21",
+   "n2": "N20"
+  },
+  {
+   "name": "U1R",
+   "domain": "hyd",
+   "cell": "U1R -10 0.01 999",
+   "n1": "N35",
+   "n2": "N30"
+  },
+  {
+   "name": "R39",
+   "domain": "hyd",
+   "cell": "R39 2 28.2",
+   "n1": "S35",
+   "n2": "N39"
+  },
+  {
+   "name": "R40",
+   "domain": "hyd",
+   "cell": "R40 2 28.2",
+   "n1": "S35",
+   "n2": "N40"
+  },
+  {
+   "name": "Upt1b",
+   "domain": "hyd",
+   "cell": "Upt1b 0.95 0.92 0.95 28.2",
+   "n1": "N40",
+   "n2": "N41"
+  },
+  {
+   "name": "RZ40",
+   "domain": "hyd",
+   "cell": "RZ40 50000 28.2",
+   "n1": "N41",
+   "n2": "N42"
+  },
+  {
+   "name": "R05",
+   "domain": "hyd",
+   "cell": "R05 5 28.2",
+   "n1": "N04",
+   "n2": "N05"
+  },
+  {
+   "name": "R10",
+   "domain": "hyd",
+   "cell": "R10 5 34.4",
+   "n1": "N36",
+   "n2": "N10"
+  },
+  {
+   "name": "R11",
+   "domain": "hyd",
+   "cell": "R11 18 28.2",
+   "n1": "N04",
+   "n2": "N11"
+  },
+  {
+   "name": "R22",
+   "domain": "hyd",
+   "cell": "R22 18 34.4",
+   "n1": "N36",
+   "n2": "N22"
+  },
+  {
+   "name": "R30",
+   "domain": "hyd",
+   "cell": "R30 5 28.2",
+   "n1": "N04",
+   "n2": "N30"
+  },
+  {
+   "name": "R35",
+   "domain": "hyd",
+   "cell": "R35 5 34.4",
+   "n1": "N36",
+   "n2": "N35"
+  },
+  {
+   "name": "R41",
+   "domain": "hyd",
+   "cell": "R41 2 28.2",
+   "n1": "N42",
+   "n2": "S35"
+  },
+  {
+   "name": "R03",
+   "domain": "hyd",
+   "cell": "R03 0.5 28.2",
+   "n1": "N03",
+   "n2": "N02"
+  },
+  {
+   "name": "R04",
+   "domain": "hyd",
+   "cell": "R04 8 28.2",
+   "n1": "N37",
+   "n2": "N03"
+  },
+  {
+   "name": "Rz04",
+   "domain": "hyd",
+   "cell": "Rz04 100 28.2",
+   "n1": "N04",
+   "n2": "N37"
+  },
+  {
+   "name": "R24",
+   "domain": "hyd",
+   "cell": "R24 1 28.2",
+   "n1": "N23",
+   "n2": "N24"
+  },
+  {
+   "name": "UFL",
+   "domain": "hyd",
+   "cell": "UFL -2 0.01 999",
+   "n1": "N25",
+   "n2": "N24"
+  },
+  {
+   "name": "R25",
+   "domain": "hyd",
+   "cell": "R25 1 34.4",
+   "n1": "N28",
+   "n2": "N25"
+  },
+  {
+   "name": "Upm1",
+   "domain": "hyd",
+   "cell": "Upm1 206 8.4 19.6",
+   "n1": "N01",
+   "n2": "N02"
+  },
+  {
+   "name": "Ucv1",
+   "domain": "hyd",
+   "cell": "Ucv1 241 0.1 999",
+   "n1": "N03",
+   "n2": "S35"
+  },
+  {
+   "name": "Rl_F",
+   "domain": "hyd",
+   "cell": "Rl_F 1 999",
+   "n1": "N04",
+   "n2": "N29"
+  },
+  {
+   "name": "R23",
+   "domain": "hyd",
+   "cell": "R23 2 28.2",
+   "n1": "N23",
+   "n2": "N29"
+  },
+  {
+   "name": "R28",
+   "domain": "hyd",
+   "cell": "R28 2 34.4",
+   "n1": "N36",
+   "n2": "N28"
+  },
+  {
+   "name": "R01",
+   "domain": "hyd",
+   "cell": "R01 0.5 34.4",
+   "n1": "S35",
+   "n2": "N01"
+  },
+  {
+   "name": "R29",
+   "domain": "hyd",
+   "cell": "R29 8 34.4",
+   "n1": "N38",
+   "n2": "S35"
+  },
+  {
+   "name": "Rz29",
+   "domain": "hyd",
+   "cell": "Rz29 100 34.4",
+   "n1": "N36",
+   "n2": "N38"
+  },
+  {
+   "name": "R26",
+   "domain": "hyd",
+   "cell": "R26 3 28.2",
+   "n1": "N26",
+   "n2": "N23"
+  },
+  {
+   "name": "USL",
+   "domain": "hyd",
+   "cell": "USL -3.3 0.01 999",
+   "n1": "N27",
+   "n2": "N26"
+  },
+  {
+   "name": "R27",
+   "domain": "hyd",
+   "cell": "R27 3 34.4",
+   "n1": "N28",
+   "n2": "N27"
+  }
+ ],
+ "events": [],
+ "sim": {
+  "mode": "steady"
+ }
+}
